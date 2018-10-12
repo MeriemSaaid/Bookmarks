@@ -1,5 +1,6 @@
 //Add eventlistner the form
 document.querySelector("#myForm").addEventListener("submit", saveBookMark);
+document.querySelector("#filter").addEventListener("keyup", filterBoormarks);
 
 function saveBookMark(e) {
   e.preventDefault();
@@ -65,6 +66,7 @@ function fetchBookmarks() {
     //Print title
     var h5 = document.createElement("h5");
     h5.textContent = name;
+    h5.className = "name";
     //h5.setAttribute("style", "display:inline;");
     newDiv.appendChild(h5);
 
@@ -99,4 +101,18 @@ function deleteBookmarks(name) {
 
   localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
   fetchBookmarks();
+}
+function filterBoormarks() {
+  var bookmarks = document.querySelectorAll(".name");
+  var inputFilter = document.querySelector("#filter").value.toUpperCase();
+  // alert(inputFilter);
+  for (var i = 0; i < bookmarks.length; i++) {
+    var name = bookmarks[i].textContent.toUpperCase();
+    if (name.includes(inputFilter)) {
+      bookmarks[i].parentElement.style.display = "block";
+    } else {
+      bookmarks[i].parentElement.style.display = "none";
+      alert(2);
+    }
+  }
 }
